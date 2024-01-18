@@ -1,21 +1,42 @@
-// [Template no Kotlin Playground](https://pl.kotl.in/WcteahpyN)
+enum class Nivel { BASICO, INTERMEDIARIO, AVANÇADO }
 
-enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
+class Usuario (val name: String)
 
-class Usuario
+data class ConteudoEducacional(var name: String, val duracao: Int = 60)
 
-data class ConteudoEducacional(var nome: String, val duracao: Int = 60)
-
-data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) {
+data class Formacao(val name: String, var conteudos: List<ConteudoEducacional>) {
 
     val inscritos = mutableListOf<Usuario>()
-    
+     
     fun matricular(usuario: Usuario) {
-        TODO("Utilize o parâmetro $usuario para simular uma matrícula (usar a lista de $inscritos).")
+         inscritos.add(usuario)
+      println("${usuario.name} foi registrado com sucesso na formação $name")
+      
+        
     }
 }
 
 fun main() {
-    TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
-    TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
-}
+    //Cursos
+    val angular = ConteudoEducacional("Angular iniciante", 50)
+    val kotlin = ConteudoEducacional("Kotlin Iniciante", 60)
+    val chatgpt = ConteudoEducacional("ChatGpt Básico", 40)
+    
+    //Formação 
+    val formacaoAngular = Formacao("Formação Angular", listOf(angular))
+    val formacaoKotlin = Formacao("Formação Kotlin", listOf(kotlin))
+    val formacaoChatGpt = Formacao("Formação ChatGpt", listOf(chatgpt))
+    //Usuários
+   		val pedro = Usuario("Pedro")
+        val tainara = Usuario("Tainara")
+        val paulo = Usuario("Paulo")
+        
+    //Registro das matriculas usuario
+       formacaoAngular.matricular(pedro)
+	   formacaoKotlin.matricular(tainara)
+       formacaoChatGpt.matricular(paulo)
+
+   //Análise do registros iscritos na formação
+   println("Inscritos na formação Angular: ${formacaoAngular.inscritos.map { it.name }}")
+   println("Inscritos na formação Kotlin: ${formacaoKotlin.inscritos.map { it.name }}")
+   println("Inscritos na formação ChatGpt: ${formacaoChatGpt.inscritos.map { it.name }}")
